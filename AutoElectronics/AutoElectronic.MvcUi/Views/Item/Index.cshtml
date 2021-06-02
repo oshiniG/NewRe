@@ -1,0 +1,40 @@
+﻿@model AutoElectronic.Application.ViewModels.ItemListViewModel
+
+@{
+    ViewData["Title"] = "Dahboard";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-sm-6">
+        <h1>Dahboard</h1>
+    </div>
+    <div class="col-sm-6">
+        <a asp-action="Create" class="btn btn-success float-right">Add New</a>
+    </div>
+</div>
+
+<div class="container py-3">
+    <div class="card-columns">
+        @foreach (var item in Model.Itemlist)
+        {
+            <div class="card">
+                <img class="card-img-top" src="~/images/img1.jpg" style="width:12.5rem; height:11.25rem; margin-left:4.375rem" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">@Html.DisplayFor(modelItem => item.Name)</h5>
+                    <div class="list-group">
+                        <label class="list-group-item">Asset Number :  @Html.DisplayFor(modelItem => item.AssetNumber) </label>
+                        <label class="list-group-item">Available Units :  @Html.DisplayFor(modelItem => item.AvailableUnits) </label>
+                        <label class="list-group-item">Re-Order Level : @Html.DisplayFor(modelItem => item.ReOrderLevel) </label>
+                    </div>
+                    <div class="list-group list-group-horizontal">
+                        <a asp-action="Details" asp-route-id="@item.Id" class="list-group-item list-group-item-action list-group-item-success"><i class="fa fa-eye" aria-hidden="true"> </i></a>
+                        <a asp-action="Edit" asp-route-id="@item.Id" class="list-group-item list-group-item-action list-group-item-primary"><i class="fa fa-pen" aria-hidden="true"> </i></a>
+                        <a asp-action="Delete" asp-route-id="@item.Id" class="list-group-item list-group-item-action list-group-item-danger"><i class="fa fa-trash" aria-hidden="true"> </i></a>
+                    </div>
+
+                </div>
+            </div>
+        }
+    </div>
+</div>

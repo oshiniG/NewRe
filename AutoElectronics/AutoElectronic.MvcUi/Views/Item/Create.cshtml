@@ -1,0 +1,64 @@
+﻿@model AutoElectronic.Application.ViewModels.ItemViewModel
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Create</title>
+</head>
+<body>
+    @if (TempData["CreateMessage"] != null)
+    {
+        <p class="alert-success" id="successMessage">@TempData["CreateMessage"]</p>
+    }
+    <hr />
+    <div class="row card">
+        <div class="col-md-4">
+            <form asp-action="Create">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="AssetNumber" class="control-label"></label>
+                    <input asp-for="AssetNumber" class="form-control" />
+                    <span asp-validation-for="AssetNumber" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Name" class="control-label"></label>
+                    <input asp-for="Name" class="form-control" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="AvailableUnits" class="control-label"></label>
+                    <input asp-for="AvailableUnits" class="form-control" />
+                    <span asp-validation-for="AvailableUnits" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="ReOrderLevel" class="control-label"></label>
+                    <input asp-for="ReOrderLevel" class="form-control" />
+                    <span asp-validation-for="ReOrderLevel" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="UnitPrice" class="control-label"></label>
+                    <input asp-for="UnitPrice" class="form-control" />
+                    <span asp-validation-for="UnitPrice" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div>
+        <a asp-action="Index">Back to Dashboard</a>
+    </div>
+
+    @section Scripts {
+        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    }
+</body>
+</html>

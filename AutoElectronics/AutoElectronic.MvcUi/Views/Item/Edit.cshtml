@@ -1,0 +1,84 @@
+﻿@model AutoElectronic.Application.ViewModels.ItemViewModel
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Edit</title>
+</head>
+<body>
+    @if (TempData["EditMessage"] != null)
+    {
+        <p class="alert-success" id="successMessage">@TempData["EditMessage"]</p>
+    }
+    <hr />
+    <div class="alert" id="divAlert">
+        <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+        Please pay attention, available stock exceed re order level
+    </div>
+    <div class="row card">
+        <div class="col-md-4">
+            <form asp-action="Edit">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="Id" />
+                <div class="form-group">
+                    <label asp-for="AssetNumber" class="control-label"></label>
+                    <input asp-for="AssetNumber" class="form-control" />
+                    <span asp-validation-for="AssetNumber" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Name" class="control-label"></label>
+                    <input asp-for="Name" class="form-control" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="AvailableUnits" class="control-label"></label>
+                    <input asp-for="AvailableUnits" class="form-control" min="0" id="inputAvailableUnits" />
+                    <span asp-validation-for="AvailableUnits" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="ReOrderLevel" class="control-label"></label>
+                    <input asp-for="ReOrderLevel" class="form-control" min="0" id="reOrderLevel" />
+                    <span asp-validation-for="ReOrderLevel" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="UnitPrice" class="control-label"></label>
+                    <input asp-for="UnitPrice" class="form-control" />
+                    <span asp-validation-for="UnitPrice" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Save" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div>
+        <a asp-action="Index">Back to Dashboard</a>
+    </div>
+
+    @section Scripts {
+        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    }
+</body>
+</html>
+
+<script type="text/javascript">
+    $(function () {
+        $('#inputAvailableUnits').on('input', function (e) {
+            var availableUnits = $(this).val();
+            var orderLevel = document.getElementById("reOrderLevel").value;
+            if (availableUnits < orderLevel) {
+                $('#divAlert').css('visibility', 'visible');
+            }
+            else {
+                $('#divAlert').css('visibility', 'hidden');
+            };
+        });
+
+    });
+</script>
